@@ -8,6 +8,9 @@ help:
 	@echo ""
 	@echo "  Usage: make <target>"
 	@echo ""
+	@echo "  Setup"
+	@echo "    setup          Create .env from .env.example"
+	@echo ""
 	@echo "  Dev"
 	@echo "    install        Install dependencies"
 	@echo "    dev            Start dev server"
@@ -35,6 +38,23 @@ help:
 	@echo "  CI"
 	@echo "    ci             Full CI pipeline (check + test + build)"
 	@echo ""
+
+# ──────────────────────────────────────────────────────────────
+#  Setup
+# ──────────────────────────────────────────────────────────────
+.PHONY: setup
+setup:
+	@if [ -f .env ]; then \
+		echo "[SKIP] .env already exists. Run: make install && make dev"; \
+	else \
+		cp .env.example .env; \
+		echo "[OK] .env created from .env.example"; \
+		echo ""; \
+		echo "  Check the value in .env:"; \
+		echo "    VITE_API_URL — backend API URL (default: http://localhost:8000/api/v1)"; \
+		echo ""; \
+		echo "  Then: make install && make dev"; \
+	fi
 
 # ──────────────────────────────────────────────────────────────
 #  Dev
